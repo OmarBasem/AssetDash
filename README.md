@@ -51,3 +51,12 @@ I used ReactQuery to fetch, cache, and sync server data in the UI with minimal b
 I used Zustand for a fast, minimal, and scalable state management with a simple API and no boilerplate.
 
 I used MMKV for fast, persistent, and synchronous storage with minimal overhead.
+
+## Next Steps
+
+Some of the steps I would take If I were to take that demo app to production:
+
+- Fix icon urls issues, possibly from the backend
+- Add pagination for assets fetching for faster loading
+- Use a real refetch, like refretchInterval in react query, instead of simulating
+- add unit tests, component tests, and e2e tests

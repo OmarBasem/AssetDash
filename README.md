@@ -38,9 +38,9 @@ work as not all assets returned a well formatted image with the right MIME type.
 - SSL error
 - Non 2xx response
 
-Therefore, I created a customized AssetIcon component to handle the different cases. I used react-native-blob-util to 
-download the image. BlobUtil will detect and assign the right mime type. If it was an svg, then an SVG component will be
-used to render the icon. In case of an SSL error or a non 2xx response, a default placeholder will be displayed.
+Therefore, I created a customized AssetIcon component to handle the different cases, and a fetchIcon util function under `utils/images.ts`.
+I used react-native-blob-util to download the image. BlobUtil will detect and assign the right mime type. If it was an svg,
+then an SVG component will be used to render the icon. In case of an SSL error or a non 2xx response, a default placeholder will be displayed.
 
 I simulated price updates inside `useAssets` hook using a `setInterval` to update some of the assets at random every 10 seconds.
 

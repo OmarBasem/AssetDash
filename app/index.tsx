@@ -9,7 +9,7 @@ import {useCallback, useMemo} from "react";
 import {Asset} from "@/types/asset";
 
 export default function AssetListScreen() {
-    const {data, isLoading} = useAssets();
+    const {data, isLoading, isFetching, refetch} = useAssets();
     const router = useRouter();
     const filters = useAssetFilter();
     const filtered = useMemo(() => {
@@ -41,7 +41,7 @@ export default function AssetListScreen() {
     if (isLoading) {
         return <ActivityIndicator style={{flex: 1}}/>;
     }
-
+    const refreshing = isFetching && !isLoading;
     return (
         <>
             <FilterBar/>
@@ -50,6 +50,8 @@ export default function AssetListScreen() {
                 keyExtractor={keyExtractor}
                 renderItem={renderItem}
                 estimatedItemSize={64}
+                refreshing={refreshing}
+                onRefresh={refetch}
             />
         </>
     );

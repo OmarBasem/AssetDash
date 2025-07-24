@@ -56,7 +56,7 @@ I used MMKV for fast, persistent, and synchronous storage with minimal overhead.
 
 Some of the steps I would take If I were to take that demo app to production:
 
-- Fix icon urls issues, possibly from the backend
+- Fix icon url issues from the backend by having all of them return a properly formatted PNG image
 - Add pagination for assets fetching for faster loading
 - Use a real refetch to show price changes, like refetchInterval in react query, instead of simulating
 - add unit tests, component tests, and e2e tests

@@ -20,7 +20,6 @@ export default function FilterBar() {
             <Chip label="New" active={showNew} onPress={toggleNew}/>
             <Chip label="Pro" active={showPro} onPress={togglePro}/>
 
-            {/* price filter */}
             {editing ? (
                 <View style={styles.inputBox}>
                     <TextInput

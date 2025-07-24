@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
-import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import {Asset} from "@/types/asset";
-import CustomImage from "@/components/CustomImage";
+import AssetIcon from "@/components/AssetIcon";
+import {formatNumber} from "@/utils/numbers";
 
 interface AssetItemProps {
   asset: Asset;
@@ -23,11 +24,7 @@ const AssetItem: React.FC<AssetItemProps> = ({ asset, onPress }) => {
       style={({ pressed }) => [styles.container, pressed && styles.pressed]}
       onPress={onPress}
     >
-      {token_icon ? (
-        <CustomImage uri={token_icon} style={styles.icon} />
-      ) : (
-        <View style={[styles.icon, styles.placeholder]} />
-      )}
+      <AssetIcon uri={token_icon} style={styles.icon} />
 
       <View style={styles.meta}>
         <Text style={styles.symbol}>{token_symbol}</Text>
@@ -42,13 +39,6 @@ const AssetItem: React.FC<AssetItemProps> = ({ asset, onPress }) => {
     </Pressable>
   );
 };
-
-function formatNumber(n: number): string {
-  if (n >= 1e9) return `${(n / 1e9).toFixed(1)}B`;
-  if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
-  if (n >= 1e3) return `${(n / 1e3).toFixed(1)}K`;
-  return n.toFixed(0);
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -69,4 +59,4 @@ const styles = StyleSheet.create({
   badge: { fontSize: 12, marginTop: 2 },
 });
 
-export default memo(AssetItem);
+export default AssetItem;

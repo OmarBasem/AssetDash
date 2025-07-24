@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: 9999,
-        backgroundColor: '#e5e7eb', // gray‑200
+        backgroundColor: '#e5e7eb',
         alignItems: 'center',
         justifyContent: 'center',
     },
     active: {
-        backgroundColor: '#6366f1', // indigo‑500
+        backgroundColor: '#6366f1',
     },
     pressed: {
         opacity: 0.8,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 12,
         fontWeight: '600',
-        color: '#374151', // gray‑700
+        color: '#374151',
     },
     textActive: {
         color: '#fff',

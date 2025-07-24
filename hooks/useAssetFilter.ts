@@ -7,7 +7,6 @@ type State = {
     showPro: boolean;
     priceMin: number;
     sortBy: 'price' | 'marketCap';
-    // actions
     toggleNew: () => void;
     togglePro: () => void;
     setPriceMin: (n: number) => void;

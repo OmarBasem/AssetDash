@@ -1,23 +1,17 @@
-import {ScrollView, View, Text, StyleSheet, Image} from 'react-native';
+import {ScrollView, View, Text, StyleSheet} from 'react-native';
 import {useLocalSearchParams} from 'expo-router';
-import {useAssets} from '@/hooks/useAsset';
-import React from "react";
+import AssetIcon from "@/components/AssetIcon";
+import {useAssetDetail} from "@/hooks/useAssetDetail";
 
 export default function AssetDetailRoute() {
     const {address} = useLocalSearchParams<{ address: string }>();
-    const {data} = useAssets();              // reuse list hook
-    const asset = data?.find(a => a.token_address === address);
-    if (!asset) return null;                   // loading / 404
+    const {data: asset} = useAssetDetail(address);
+    if (!asset) return null;
 
     return (
         <ScrollView contentContainerStyle={s.container}>
-            {/* HERO */}
             <View style={s.hero}>
-                {asset.token_icon ? (
-                    <Image source={{uri: asset.token_icon}} style={s.icon}/>
-                ) : (
-                    <View style={[s.icon, s.placeholder]}/>
-                )}
+                <AssetIcon uri={asset.token_icon} style={s.icon}/>
                 <View>
                     <Text style={s.symbol}>{asset.token_symbol}</Text>
                     <Text style={s.price}>${asset.price_usd.toFixed(8)}</Text>
@@ -30,30 +24,21 @@ export default function AssetDetailRoute() {
                 </View>
             </View>
 
-            {/* ACTIONS */}
-            {/* TradeButton & WatchButton components */}
-
-            {/* STATS GRID */}
             <View style={s.grid}>
                 <Stat label="Market Cap" value={asset.market_cap_usd}/>
-                <Stat label="Vol 24 h" value={asset.volume_usd.h24}/>
+                <Stat label="Vol 24h" value={asset.volume_usd.h24}/>
                 <Stat label="Liquidity" value={asset.liquidity_usd}/>
             </View>
 
-            {/* WHALE CARD */}
             <View style={s.card}>
                 <Text style={s.cardTitle}>Whale Activity (24 h)</Text>
-                <Text>Trades: {asset.whale_buys_count.h24}️⃣ buys / {asset.whale_sells_count.h24}️⃣ sells</Text>
+                <Text>Trades: {asset.whale_buys_count.h24}️ buys / {asset.whale_sells_count.h24}️ sells</Text>
                 <Text>Net flow: <Text style={asset.whale_net_flow_usd.h24 >= 0 ? s.up : s.down}>
                     ${asset.whale_net_flow_usd.h24.toFixed(0)}
                 </Text></Text>
                 <Text>Net supply: {asset.whale_net_supply_percent.h24.toFixed(2)}%</Text>
             </View>
 
-            {/* PRICE‑CHANGE TABLE */}
-            {/* map over ['m5','m30','h1','h4'] */}
-
-            {/* BADGES */}
             <View style={s.badges}>
                 {asset.is_new && <Badge text="🆕 New"/>}
                 {asset.is_pump && <Badge text="🚀 Pump"/>}
@@ -61,7 +46,6 @@ export default function AssetDetailRoute() {
                 {asset.is_bonk && <Badge text="👑 Bonk"/>}
             </View>
 
-            {/* ABOUT */}
             <View style={s.card}>
                 <Text style={s.cardTitle}>About</Text>
                 <Text>Address: {asset.token_address}</Text>
@@ -71,7 +55,6 @@ export default function AssetDetailRoute() {
     );
 }
 
-// --- tiny helpers ---------------------------------------------------
 const Stat = ({label, value}: { label: string; value: number }) => (
     <View style={s.statBox}>
         <Text style={s.statVal}>{formatNum(value)}</Text>
@@ -86,7 +69,6 @@ const Badge = ({text}: { text: string }) => (
 const formatNum = (n: number) =>
     Intl.NumberFormat('en', {notation: 'compact', maximumFractionDigits: 1}).format(n);
 
-// --- styles (rounded cards, soft shadows, tabular nums) -------------
 const s = StyleSheet.create({
     container: {padding: 16, gap: 20},
     hero: {flexDirection: 'row', gap: 16, alignItems: 'center'},
@@ -94,8 +76,8 @@ const s = StyleSheet.create({
     symbol: {fontSize: 24, fontWeight: '600'},
     price: {fontVariant: ['tabular-nums'], fontSize: 16},
     delta: {marginTop: 2, fontVariant: ['tabular-nums']},
-    up: {color: '#16a34a'},     // green‑500
-    down: {color: '#dc2626'},   // red‑600
+    up: {color: '#16a34a'},
+    down: {color: '#dc2626'},
     grid: {flexDirection: 'row', justifyContent: 'space-between'},
     statBox: {alignItems: 'center', flex: 1},
     statVal: {fontWeight: '600', fontVariant: ['tabular-nums']},

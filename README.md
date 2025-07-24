@@ -2,7 +2,9 @@
 
 This project is a small react native application to display a list of crypto assets with simulated updates and filtering mechanisms
 
-https://github.com/user-attachments/assets/cf2cffd9-18ac-4db0-a3d9-e2b90af2c272
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/cf2cffd9-18ac-4db0-a3d9-e2b90af2c272" />
+</div>
 
 ## Project Setup
 

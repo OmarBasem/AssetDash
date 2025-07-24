@@ -58,5 +58,5 @@ Some of the steps I would take If I were to take that demo app to production:
 
 - Fix icon urls issues, possibly from the backend
 - Add pagination for assets fetching for faster loading
-- Use a real refetch, like refretchInterval in react query, instead of simulating
+- Use a real refetch to show price changes, like refetchInterval in react query, instead of simulating
 - add unit tests, component tests, and e2e tests

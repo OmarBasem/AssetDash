@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import {Image} from "expo-image";
+import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
 import {Asset} from "@/types/asset";
+import CustomImage from "@/components/CustomImage";
 
 interface AssetItemProps {
   asset: Asset;
@@ -24,7 +24,7 @@ const AssetItem: React.FC<AssetItemProps> = ({ asset, onPress }) => {
       onPress={onPress}
     >
       {token_icon ? (
-        <Image source={token_icon} style={styles.icon} />
+        <CustomImage uri={token_icon} style={styles.icon} />
       ) : (
         <View style={[styles.icon, styles.placeholder]} />
       )}

@@ -1,6 +1,5 @@
-import {ScrollView, View, Text, StyleSheet} from 'react-native';
+import {ScrollView, View, Text, StyleSheet, Image} from 'react-native';
 import {useLocalSearchParams} from 'expo-router';
-import {Image} from "expo-image";
 import {useAssets} from '@/hooks/useAsset';
 import React from "react";
 
@@ -15,7 +14,7 @@ export default function AssetDetailRoute() {
             {/* HERO */}
             <View style={s.hero}>
                 {asset.token_icon ? (
-                    <Image source='https://ipfs.io/ipfs/bafkreifbjxsikdmuhk5qi6krg3sqk2fcqvqlcffrc44kg7ecfkmwhz6s5i?filename=logo.png' style={s.icon}/>
+                    <Image source={{uri: asset.token_icon}} style={s.icon}/>
                 ) : (
                     <View style={[s.icon, s.placeholder]}/>
                 )}

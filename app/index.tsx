@@ -5,6 +5,7 @@ import AssetItem from '@/components/AssetItem';
 import {useRouter} from 'expo-router';
 import {useAssetFilter} from "@/hooks/useAssetFilter";
 import FilterBar from "@/components/FilterBar";
+import BlobUtil from 'react-native-blob-util';
 
 export default function AssetListScreen() {
     const {data, isLoading} = useAssets();

@@ -17,7 +17,7 @@ async function fetchIcon(uri: string): Promise<IconTypes> {
   let res;
   try {
     res = await BlobUtil.config({ fileCache: true }).fetch('GET', uri);
-  } catch {
+  } catch (err) {
     return { kind: 'fallback' };
   }
 

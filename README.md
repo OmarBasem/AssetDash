@@ -1,50 +1,49 @@
-# Welcome to your Expo app 👋
+# AssetDash
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is a small react native application to display a list of crypto assets with simulated updates and filtering mechanisms
 
-## Get started
+## Project Setup
 
-1. Install dependencies
+1. Git clone: `git clone git@github.com:OmarBasem/AssetDash.git && cd AssetDash`
+2. Install packages: `npm install`
+3. Start ios app: `npx expo run:ios`
 
-   ```bash
-   npm install
-   ```
+## Features
 
-2. Start the app
+1. Fetching and displaying list of crypto assets
+2. Simulated price updates every 10 seconds to some of the items
+3. Filtering: is_new, is_pro, and price greater than
+4. Sorting: by price or market cap
+5. An AssetDetail screen to display more info about an asset
 
-   ```bash
-   npx expo start
-   ```
+## Tech Stack
 
-In the output, you'll find options to open the app in a
+- Framework: React Native and Expo
+- Programming Language: TypeScript
+- API fetch: React Query
+- State management: Zustand and MMKV
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Technical Decisions
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+I think the part which required some thinking is how to display the assets Icons. Using a simple Image component did not
+work as not all assets returned a well formatted image with the right MIME type. The icons uri could return any of the following:
 
-## Get a fresh project
+- Proper image with the right mime type and extension
+- Image but mime type and extension missing
+- SVG
+- SSL error
+- Non 2xx response
 
-When you're ready, run:
+Therefore, I created a customized AssetIcon component to handle the different cases. I used react-native-blob-util to 
+download the image. BlobUtil will detect and assign the right mime type. If it was an svg, then an SVG component will be
+used to render the icon. In case of an SSL error or a non 2xx response, a default placeholder will be displayed.
 
-```bash
-npm run reset-project
-```
+I simulated price updates inside `useAssets` hook using a `setInterval` to update some of the assets at random every 10 seconds.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+I used FlashList, an efficient, performant, and low-memory virtualized list, to display the list of assets.
 
-## Learn more
+I used ReactQuery to fetch, cache, and sync server data in the UI with minimal boilerplate and built-in performance optimizations.
 
-To learn more about developing your project with Expo, look at the following resources:
+I used Zustand for a fast, minimal, and scalable state management with a simple API and no boilerplate.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+I used MMKV for fast, persistent, and synchronous storage with minimal overhead.

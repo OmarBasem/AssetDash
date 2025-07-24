@@ -40,11 +40,9 @@ export function useAssets() {
 
 
 function randomizeAsset(a: Asset): Asset {
-  // ±5% price wiggle
   const factor = 0.95 + Math.random() * 0.10;
   const newPrice = round(a.price_usd * factor, 4);
 
-  // recompute a couple of “relevant fields” consistently
   const priceChangePct = ((newPrice - a.price_usd) / a.price_usd) * 100;
 
   return {

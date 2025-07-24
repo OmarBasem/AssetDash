@@ -1,6 +1,6 @@
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {zustandMMKVStorage} from "@/store/mmkv";
 
 type State = {
     showNew: boolean;
@@ -27,7 +27,7 @@ export const useAssetFilter = create<State>()(
         }),
         {
             name: 'asset-filters',
-            storage: createJSONStorage(() => AsyncStorage),
+            storage: createJSONStorage(() => zustandMMKVStorage),
         },
     )
 );
